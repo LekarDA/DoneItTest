@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">DoneITest</string>
+    <string name="network_disconnect">Network connection failed</string>
+    <string name="server_error">Server not response</string>
+</resources>
