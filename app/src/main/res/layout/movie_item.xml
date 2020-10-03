@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/card_view"
+    android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:foreground="?selectableItemBackground"
@@ -11,7 +11,6 @@
     android:layout_marginBottom="8dp"
     android:focusable="true"
     android:clickable="true">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,9 +23,7 @@
             android:scaleType="centerCrop"
             android:layout_gravity="center"
             android:src="@drawable/poster_placeholder">
-
         </ImageView>
-
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
@@ -47,7 +44,5 @@
             android:text="2019"
             android:maxLength="4"
             android:textSize="12sp"/>
-
     </LinearLayout>
-
 </androidx.cardview.widget.CardView>

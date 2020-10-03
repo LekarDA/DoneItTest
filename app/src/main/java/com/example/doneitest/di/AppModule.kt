@@ -1,16 +1,15 @@
 package com.example.doneitest.di
 
 import com.example.doneitest.ApiService
-import com.example.doneitest.Utils.Companion.API_KEY
-import com.example.doneitest.Utils.Companion.BASE_URL
-import com.example.doneitest.Utils.Companion.DEBUG
+import com.example.doneitest.Utils.API_KEY
+import com.example.doneitest.Utils.BASE_URL
+import com.example.doneitest.Utils.DEBUG
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
-import io.reactivex.disposables.CompositeDisposable
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -27,9 +26,6 @@ object AppModule {
     @Provides
     fun provideBaseUrl() = BASE_URL
 
-
-    @Provides
-    fun provideCompositeDisposable() = CompositeDisposable()
 
     @Provides
     fun provideGson(): Gson = GsonBuilder().setLenient().create()

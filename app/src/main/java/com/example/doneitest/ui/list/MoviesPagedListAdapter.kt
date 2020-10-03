@@ -8,13 +8,12 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.doneitest.R
+import com.example.doneitest.Utils.MOVIE_VIEW_TYPE
+import com.example.doneitest.Utils.NETWORK_VIEW_TYPE
 import com.example.doneitest.data.models.Movie
 import com.example.doneitest.data.repository.NetworkState
 
 class MoviesPagedListAdapter : PagedListAdapter<Movie, RecyclerView.ViewHolder>(MovieDiffCallback()) {
-
-    val MOVIE_VIEW_TYPE = 1
-    val NETWORK_VIEW_TYPE = 2
     private var networkState: NetworkState? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -30,9 +29,8 @@ class MoviesPagedListAdapter : PagedListAdapter<Movie, RecyclerView.ViewHolder>(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (getItemViewType(position) == MOVIE_VIEW_TYPE)
-        (holder as MoviesViewHolder).initView(getItem(position))
-        else (holder as NetworkStateItemViewHolder).bind(networkState)
+        if(holder is MoviesViewHolder) holder.initView(getItem(position))
+        if(holder is NetworkStateItemViewHolder) holder.bind(networkState)
     }
 
     override fun getItemCount(): Int {

@@ -5,13 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.example.doneitest.ApiService
-import com.example.doneitest.Utils.Companion.API_KEY
-import com.example.doneitest.Utils.Companion.LANGUAGE
-import com.example.doneitest.Utils.Companion.POST_PER_PAGE
+import com.example.doneitest.Utils.POST_PER_PAGE
 import com.example.doneitest.data.models.Movie
-import com.example.doneitest.data.models.MoviesResponse
-import io.reactivex.Single
+import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 class MovieRepository @Inject constructor(private val moviesDataSourceFactory: MovieDataSourceFactory){
@@ -30,5 +26,9 @@ class MovieRepository @Inject constructor(private val moviesDataSourceFactory: M
     fun getNetworkState(): LiveData<NetworkState> {
         return Transformations.switchMap<MovieDataSource, NetworkState>(
             moviesDataSourceFactory.moviesLiveDataSource, MovieDataSource::networkState)
+    }
+
+    fun setCompositeDisposable(compositeDisposable: CompositeDisposable){
+        moviesDataSourceFactory.setCompositeDisposable(compositeDisposable)
     }
 }

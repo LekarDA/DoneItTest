@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
 import com.example.doneitest.ApiService
 import com.example.doneitest.Utils
-import com.example.doneitest.Utils.Companion.FIRST_PAGE
+import com.example.doneitest.Utils.FIRST_PAGE
 import com.example.doneitest.data.models.Movie
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -15,20 +15,20 @@ import javax.inject.Inject
 
 
 class MovieDataSource @Inject constructor(
-    private val apiService: ApiService,
-    private val compositeDisposable: CompositeDisposable
+    private val apiService: ApiService
 ) : PageKeyedDataSource<Int, Movie>() {
 
     private var page = FIRST_PAGE
     val networkState: MutableLiveData<NetworkState> = MutableLiveData()
 
+    private var compositeDisposable: CompositeDisposable? = null
 
     override fun loadInitial(
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Int, Movie>
     ) {
         networkState.postValue(NetworkState.LOADING)
-        compositeDisposable.add(
+        compositeDisposable?.add(
             ReactiveNetwork
                 .observeInternetConnectivity().subscribe {
                     if (it) {
@@ -56,7 +56,7 @@ class MovieDataSource @Inject constructor(
         callback: LoadCallback<Int, Movie>
     ) {
         networkState.postValue(NetworkState.LOADING)
-        compositeDisposable.add(
+        compositeDisposable?.add(
             ReactiveNetwork
                 .observeInternetConnectivity()
                 .subscribe {
@@ -91,5 +91,9 @@ class MovieDataSource @Inject constructor(
     fun errorDuringLoading(throwable: Throwable) {
         networkState.postValue(NetworkState.ERROR)
         throwable.message?.let { message -> Log.e("MovieDataSource", message) }
+    }
+
+    fun setCompositeDisposable(compositeDisposable: CompositeDisposable){
+        this.compositeDisposable = compositeDisposable
     }
 }
